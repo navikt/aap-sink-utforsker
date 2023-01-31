@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@navikt/ds-css": "2.1.5",
+    "@navikt/ds-css-internal": "2.1.5",
+    "@navikt/ds-react": "2.1.5",
+    "@navikt/ds-react-internal": "2.1.5",
     "@next/font": "13.1.6",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
