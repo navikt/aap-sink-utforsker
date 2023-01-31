@@ -1,10 +1,10 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Layout } from '@/components/Layout/Layout';
 
 import '@navikt/ds-css';
 import '@navikt/ds-css-internal';
 import '../src/styles/index.css';
+import { Layout } from '@/components/Layout/Layout';
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
