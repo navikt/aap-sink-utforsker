@@ -28,3 +28,9 @@ spec:
      - name: {{this.name }}
        value: {{this.value}}
   {{/each}}
+  azure:
+    application:
+      enabled: true
+      allowAllUsers: true
+    sidecar:
+      enabled: true
