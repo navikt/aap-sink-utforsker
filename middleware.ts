@@ -4,19 +4,20 @@ import { NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
-  // const loginPath = `/oauth2/login?redirect=${url}/`;
+  const loginPath = `/oauth2/login?redirect=${url}/`;
   //
-  // const { get } = request.headers;
-  // const authorization = get('authorization');
+  const { get } = request.headers;
+  const authorization = get('authorization');
   // if (url?.includes('isReady') || url.includes('isAlive')) {
   //   return NextResponse.next();
   // }
   //
   // if (!authorization || !(await validateAuthorization(authorization))) {
-  //   return NextResponse.redirect(loginPath);
-  // } else {
-  return NextResponse.rewrite(url);
-  // }
+  if (!authorization) {
+    return NextResponse.redirect(loginPath);
+  } else {
+    return NextResponse.rewrite(url);
+  }
 }
 
 // const validateAuthorization = async (authorization: string) => {
