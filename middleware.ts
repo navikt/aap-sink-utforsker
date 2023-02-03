@@ -4,19 +4,20 @@ import { NextResponse } from 'next/server';
 import { validerToken } from './auth/verifyAccessToken';
 
 export async function middleware(request: NextRequest) {
-  const loginPath = `/oauth2/login?redirect=${request.url}/`;
+  const url = request.nextUrl;
+  const loginPath = `/oauth2/login?redirect=${url}/`;
 
   const { get } = request.headers;
   const authorization = get('authorization');
 
-  if (request.url.includes('isReady') || request.url.includes('isAlive')) {
-    return NextResponse.next();
-  }
+  // if (url?.includes('isReady') || url.includes('isAlive')) {
+  //   return NextResponse.next();
+  // }œ
 
   if (!authorization || !(await validateAuthorization(authorization))) {
     return NextResponse.redirect(loginPath);
   } else {
-    return NextResponse.next();
+    return NextResponse.rewrite(url);
   }
 }
 
