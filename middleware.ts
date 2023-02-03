@@ -9,6 +9,10 @@ export async function middleware(request: NextRequest) {
   const { get } = request.headers;
   const authorization = get('authorization');
 
+  if (request.url.includes('isReady') || request.url.includes('isAlive')) {
+    return NextResponse.next();
+  }
+
   if (!authorization || !(await validateAuthorization(authorization))) {
     return NextResponse.redirect(loginPath);
   } else {
