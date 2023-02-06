@@ -5,10 +5,16 @@ import { NextResponse } from 'next/server';
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
   console.log(request.nextUrl.pathname, request.nextUrl.basePath);
+  console.log('request nexturl pathname', request.nextUrl.pathname);
+  console.log('request nexturl basepath', request.nextUrl.basePath);
 
   const authorization = request.headers.get('authorization');
 
   const loginPath = new URL('/oauth2/login', request.url);
+
+  if (request.nextUrl.pathname.includes('/isAlive') || request.nextUrl.pathname.includes('/isReady')) {
+    return NextResponse.next();
+  }
 
   if (authorization) {
     console.log('has auth header');
