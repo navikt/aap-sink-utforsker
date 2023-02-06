@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const loginPath = `/oauth2/login?redirect=${url}/`;
-  //
+
   const { get } = request.headers;
   const authorization = get('authorization');
   // if (url?.includes('isReady') || url.includes('isAlive')) {
@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
   //
   // if (!authorization || !(await validateAuthorization(authorization))) {
   if (!authorization) {
-    return NextResponse.redirect(loginPath);
+    return NextResponse.rewrite(loginPath);
   } else {
     return NextResponse.rewrite(url);
   }
