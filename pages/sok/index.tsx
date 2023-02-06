@@ -1,4 +1,4 @@
-import { Button, Search, TextField } from '@navikt/ds-react';
+import { Button, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 import { Buffer } from 'buffer';
 

@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-import { useRouter } from 'next/router';
 import { InternalHeader } from '@/components/InternalHeader/InternalHeader';
 
 interface Props {
@@ -8,7 +7,6 @@ interface Props {
 
 export const Layout = (props: Props) => {
   const { children } = props;
-  const router = useRouter();
 
   return (
     <>
