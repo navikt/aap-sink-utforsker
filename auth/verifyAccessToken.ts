@@ -5,7 +5,7 @@ import { Client, Issuer } from 'openid-client';
 let _issuer: Issuer<Client>;
 let _remoteJWKSet: GetKeyFunction<JWSHeaderParameters, FlattenedJWSInput>;
 
-export async function validerToken(token: string | Uint8Array) {
+async function validerToken(token: string | Uint8Array) {
   return jwtVerify(token, await jwks(), {
     issuer: (await issuer()).metadata.issuer,
   });
@@ -27,3 +27,13 @@ async function issuer() {
   }
   return _issuer;
 }
+
+export const validateAuthorization = async (authorization: string) => {
+  const token = authorization.split(' ')[1];
+
+  console.log('token in validateAuthorization', token);
+
+  const JWTVerifyResult = await validerToken(token);
+
+  return !!JWTVerifyResult?.payload;
+};

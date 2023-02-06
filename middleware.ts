@@ -1,7 +1,7 @@
 // middleware.ts
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { validerToken } from './auth/verifyAccessToken';
+import { validateAuthorization } from './auth/verifyAccessToken';
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
@@ -28,18 +28,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginPath);
   }
 }
-
-const validateAuthorization = async (authorization: string) => {
-  const token = authorization.split(' ')[1];
-
-  console.log('token in validateAuthorization', token);
-
-  const JWTVerifyResult = await validerToken(token);
-
-  return true;
-  //
-  // return !!JWTVerifyResult?.payload;
-};
 
 // See "Matching Paths" below to learn more
 export const config = {
