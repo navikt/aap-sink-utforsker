@@ -6,12 +6,15 @@ export function middleware(request: NextRequest) {
   const response = NextResponse.next();
   console.log(request.nextUrl.pathname, request.nextUrl.basePath);
 
-  const assertion = request.headers.get('authorization');
+  const authorization = request.headers.get('authorization');
 
-  if (assertion) {
+  const loginPath = new URL('/oauth2/login', request.url);
+
+  if (authorization) {
     console.log('has auth header');
   } else {
-    console.log('missing auth header');
+    console.log('has no auth header');
+    return NextResponse.redirect(loginPath);
   }
 
   // return response;
@@ -43,5 +46,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: '/api/:path*',
+  matcher: ['/api/:path*', '/'],
 };
