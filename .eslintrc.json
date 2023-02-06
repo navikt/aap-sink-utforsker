@@ -18,15 +18,10 @@
     "ecmaVersion": 2021,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "jest"],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/jsx-indent": ["error", 2],
     "react/jsx-indent-props": ["error", 2],
-    "jest/no-disabled-tests": "warn",
-    "jest/no-focused-tests": "error",
-    "jest/no-identical-title": "error",
-    "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off"
   },
