@@ -18,9 +18,11 @@ export async function middleware(request: NextRequest) {
   }
 
   console.log('authorization', authorization);
-  if (authorization && (await validateAuthorization(authorization))) {
-    console.log('has auth header');
-    NextResponse.next();
+  if (authorization != null) {
+    if (await validateAuthorization(authorization)) {
+      console.log('has auth header');
+      NextResponse.next();
+    }
   } else {
     console.log('has no auth header');
     return NextResponse.redirect(loginPath);
