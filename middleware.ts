@@ -31,8 +31,10 @@ const validateAuthorization = async (authorization: string) => {
   const token = authorization.split(' ')[1];
 
   console.log('token in validateAuthorization', token);
+
+  const JWTVerifyResult = await validerToken(token);
+
   return true;
-  // const JWTVerifyResult = await validerToken(token);
   //
   // return !!JWTVerifyResult?.payload;
 };

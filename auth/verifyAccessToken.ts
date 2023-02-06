@@ -6,9 +6,13 @@ let _issuer: Issuer<Client>;
 let _remoteJWKSet: GetKeyFunction<JWSHeaderParameters, FlattenedJWSInput>;
 
 export async function validerToken(token: string | Uint8Array) {
-  return jwtVerify(token, await jwks(), {
-    issuer: (await issuer()).metadata.issuer,
-  });
+  const jwksResponse = await jwks();
+  // const issuerResponse = await issuer();
+  console.log('jwksResponse', jwksResponse);
+  // console.log('issuerResponse', issuerResponse);
+  // return jwtVerify(token, jwksResponse, {
+  //   issuer: issuerResponse.metadata.issuer,
+  // });
 }
 
 async function jwks() {
