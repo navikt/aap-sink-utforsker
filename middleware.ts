@@ -1,23 +1,22 @@
 // middleware.ts
 import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
 
-export async function middleware(request: NextRequest) {
-  const url = request.nextUrl;
+export function middleware(request: NextRequest) {
+  const url = request.nextUrl.clone();
   const loginPath = `/oauth2/login?redirect=${url}/`;
 
   const { get } = request.headers;
   const authorization = get('authorization');
-  // if (url?.includes('isReady') || url.includes('isAlive')) {
-  //   return NextResponse.next();
+
+  console.log('requestUrl', request.url);
+  console.log('url', url);
+  console.log('authorization', authorization);
+
+  // if (!authorization) {
+  //   return NextResponse.rewrite(loginPath);
+  // } else {
+  //   return NextResponse.rewrite(url);
   // }
-  //
-  // if (!authorization || !(await validateAuthorization(authorization))) {
-  if (!authorization) {
-    return NextResponse.rewrite(loginPath);
-  } else {
-    return NextResponse.rewrite(url);
-  }
 }
 
 // const validateAuthorization = async (authorization: string) => {
