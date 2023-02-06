@@ -6,15 +6,18 @@ let _issuer: Issuer<Client>;
 let _remoteJWKSet: GetKeyFunction<JWSHeaderParameters, FlattenedJWSInput>;
 
 export async function validerToken(token: string | Uint8Array) {
-  return jwtVerify(token, await jwks(), {
-    issuer: (await issuer()).metadata.issuer,
-  });
+  const jwksResponse = await jwks();
+  // const issuerResponse = await issuer();
+  console.log('jwksResponse', jwksResponse);
+  // console.log('issuerResponse', issuerResponse);
+  // return jwtVerify(token, jwksResponse, {
+  //   issuer: issuerResponse.metadata.issuer,
+  // });
 }
 
 async function jwks() {
   if (typeof _remoteJWKSet === 'undefined') {
-    const iss = await issuer();
-    _remoteJWKSet = createRemoteJWKSet(new URL(<string>iss.metadata.jwks_uri));
+    _remoteJWKSet = createRemoteJWKSet(new URL(process.env.AZURE_OPENID_CONFIG_JWKS_URI as string));
   }
 
   return _remoteJWKSet;
