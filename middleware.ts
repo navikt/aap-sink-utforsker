@@ -17,6 +17,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  console.log('authorization', authorization);
   if (authorization && (await validateAuthorization(authorization))) {
     console.log('has auth header');
     NextResponse.next();
@@ -27,16 +28,16 @@ export async function middleware(request: NextRequest) {
 }
 
 const validateAuthorization = async (authorization: string) => {
-  console.log(authorization);
-  return true;
-  // try {
-  //   const token = authorization.split(' ')[1];
-  //   const JWTVerifyResult = await validerToken(token);
-  //   return !!JWTVerifyResult?.payload;
-  // } catch (e) {
-  //   // LogError('azure ad error', e);
-  //   return false;
-  // }
+  try {
+    const token = authorization.split(' ')[1];
+    console.log('token', token);
+    const JWTVerifyResult = await validerToken(token);
+    return !!JWTVerifyResult?.payload;
+  } catch (e) {
+    // LogError('azure ad error', e);
+    console.error('Dette er en feil i catch', e);
+    return false;
+  }
 };
 
 // See "Matching Paths" below to learn more
