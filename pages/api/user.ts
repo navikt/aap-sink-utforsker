@@ -3,6 +3,11 @@ import { validerToken } from '../../auth/verifyAccessToken';
 
 const handler = beskyttetApi(async (req, res) => {
   const { authorization } = req.headers;
+
+  if (process.env.NODE_ENV == 'development') {
+    res.json({ name: 'Iren Panikk' });
+  }
+
   if (authorization) {
     try {
       const token = authorization.split(' ')[1];
