@@ -32,6 +32,8 @@ export const InternalHeader = () => {
         setBrukerInfo(brukerinfo);
       }
     }
+
+    fetchUser();
   }, []);
 
   return (
