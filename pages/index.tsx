@@ -1,5 +1,6 @@
 import { BodyShort, GuidePanel, LinkPanel } from '@navikt/ds-react';
 import { LandingPageAnimation } from '@/components/LandingPageAnimation/LandingPageAnimation';
+import { beskyttetSideUtenProps } from '../auth/beskyttetSide';
 
 export default function Home() {
   return (
@@ -17,3 +18,5 @@ export default function Home() {
     </LandingPageAnimation>
   );
 }
+
+export const getServerSideProps = beskyttetSideUtenProps;
