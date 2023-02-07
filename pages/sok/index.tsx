@@ -1,26 +1,12 @@
 import { Button, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
-import { Buffer } from 'buffer';
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
-import dynamic from 'next/dynamic';
+import { JsonViewer } from '@/components/JsonViewer/JsonViewer';
+import { parseJSON } from '@/utils/jsonUtils';
 
 const Søk = () => {
-  const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
   const [value, setValue] = useState<string>('');
-  const [data, setData] = useState<any[]>([]);
-
-  function parseJSON(data: string) {
-    if (!data) {
-      return 'No JSON here...';
-    }
-    try {
-      const buf = Buffer.from(data, 'base64');
-      return JSON.parse(buf.toString());
-    } catch (error) {
-      console.error('Klarte ikke å parse json. ' + error);
-      console.error(data);
-    }
-  }
+  const [data, setData] = useState<any[]>();
 
   async function doFetch(personident: string) {
     const params = new URLSearchParams({
@@ -32,7 +18,6 @@ const Søk = () => {
       method: 'GET',
       headers: {
         personident: personident,
-        accept: 'application/json',
       },
     });
 
@@ -55,7 +40,7 @@ const Søk = () => {
         <Button onClick={() => doFetch(value)}>Søk</Button>
       </div>
       {data && data.length > 0 && (
-        <div style={{ padding: '1rem' }}>{<DynamicReactJson src={data} theme={'summerfruit'} />}</div>
+        <div style={{ padding: '1rem' }}>{<JsonViewer src={data} theme={'summerfruit'} />}</div>
       )}
     </div>
   );
