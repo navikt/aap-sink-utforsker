@@ -1,6 +1,7 @@
 import { Button, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 import { Buffer } from 'buffer';
+import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
 
 const Søk = () => {
   const [value, setValue] = useState<string>('');
@@ -55,5 +56,7 @@ const Søk = () => {
     </div>
   );
 };
+
+export const getServerSideProps = beskyttetSideUtenProps;
 
 export default Søk;
