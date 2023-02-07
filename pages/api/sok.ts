@@ -1,19 +1,18 @@
-import {beskyttetApi} from '../../auth/beskyttetApi';
+import { beskyttetApi } from '../../auth/beskyttetApi';
 
 const handler = beskyttetApi(async (req, res) => {
   const personIdent = req.headers['personident'];
 
+  const url = process.env.NODE_ENV === 'development' ? 'localhost:3001' : 'sink';
+
   try {
-    const response = await fetch(
-      `http://localhost:3001/søker?antall=${req.query.antall}&retning=${req.query.retning}`,
-      {
-        method: 'GET',
-        headers: {
-          personident: personIdent as string,
-          accept: 'application/json',
-        },
-      }
-    );
+    const response = await fetch(`http://${url}/søker?antall=${req.query.antall}&retning=${req.query.retning}`, {
+      method: 'GET',
+      headers: {
+        personident: personIdent as string,
+        accept: 'application/json',
+      },
+    });
 
     if (response.ok) {
       const data = await response.json();
