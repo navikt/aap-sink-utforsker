@@ -5,10 +5,11 @@ import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
 import dynamic from 'next/dynamic';
 
 const Søk = () => {
+  const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
   const [value, setValue] = useState<string>('');
   const [data, setData] = useState<any[]>([]);
 
-  const parseJSON = (data: string) => {
+  function parseJSON(data: string) {
     if (!data) {
       return 'No JSON here...';
     }
@@ -19,7 +20,7 @@ const Søk = () => {
       console.error('Klarte ikke å parse json. ' + error);
       console.error(data);
     }
-  };
+  }
 
   async function doFetch(personident: string) {
     const params = new URLSearchParams({
@@ -27,7 +28,7 @@ const Søk = () => {
       retning: 'DESC',
     });
 
-    const response = await fetch('api/soker', {
+    const response = await fetch(`api/sok?${params}`, {
       method: 'GET',
       headers: {
         personident: personident,
@@ -46,9 +47,7 @@ const Søk = () => {
       setData(parsedRespons);
     }
   }
-  const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
-  console.log(data);
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr', gridRowGap: '1rem' }}>
       <div style={{ width: '50%', display: 'grid', gridTemplateColumns: '1fr', gridRowGap: '1rem' }}>
