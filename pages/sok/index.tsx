@@ -17,7 +17,6 @@ const Søk = () => {
     });
 
     const response = await fetch(`api/sok?${params}`, {
-      method: 'GET',
       headers: {
         personident: personIdent,
       },
