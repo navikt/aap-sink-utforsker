@@ -1,23 +1,25 @@
-import { Button, TextField } from '@navikt/ds-react';
+import { Button, Radio, RadioGroup, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
 import { JsonViewer } from '@/components/JsonViewer/JsonViewer';
 import { parseJSON } from '@/utils/jsonUtils';
 
 const Søk = () => {
-  const [value, setValue] = useState<string>('');
+  const [personIdent, setPersonIdent] = useState<string>('');
+  const [antall, setAntall] = useState<string>('1');
+  const [retning, setRetning] = useState('DESC');
   const [data, setData] = useState<any[]>();
 
-  async function doFetch(personident: string) {
+  async function fetchSøker() {
     const params = new URLSearchParams({
-      antall: '1',
-      retning: 'DESC',
+      antall,
+      retning,
     });
 
     const response = await fetch(`api/sok?${params}`, {
       method: 'GET',
       headers: {
-        personident: personident,
+        personident: personIdent,
       },
     });
 
@@ -34,11 +36,35 @@ const Søk = () => {
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gridRowGap: '1rem' }}>
-      <div style={{ width: '50%', display: 'grid', gridTemplateColumns: '1fr', gridRowGap: '1rem' }}>
-        <TextField label={'Skriv inn noe her'} onChange={(e) => setValue(e.target.value)} />
-        <Button onClick={() => doFetch(value)}>Søk</Button>
-      </div>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 4fr', gridRowGap: '1rem', height: '100%' }}>
+      <form
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          paddingRight: '1rem',
+          gap: '1rem',
+          minHeight: '100vh',
+          height: 'inherit',
+          borderRight: '1px solid black',
+        }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          fetchSøker();
+        }}
+      >
+        <TextField
+          size={'small'}
+          value={personIdent}
+          label={'Personident'}
+          onChange={(e) => setPersonIdent(e.target.value)}
+        />
+        <TextField size={'small'} value={antall} label={'Antall'} onChange={(e) => setAntall(e.target.value)} />
+        <RadioGroup size={'small'} legend={'Hvilken retning?'} onChange={(value) => setRetning(value)} value={retning}>
+          <Radio value={'ASC'}>Stigende</Radio>
+          <Radio value={'DESC'}>Synkende</Radio>
+        </RadioGroup>
+        <Button>Søk</Button>
+      </form>
       {data && data.length > 0 && (
         <div style={{ padding: '1rem' }}>{<JsonViewer src={data} theme={'summerfruit'} />}</div>
       )}
