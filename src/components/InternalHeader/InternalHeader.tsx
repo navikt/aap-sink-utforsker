@@ -1,7 +1,6 @@
 import { Dropdown, Header } from '@navikt/ds-react-internal';
 import { Link } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
-import { func } from 'prop-types';
 
 interface Brukerinfo {
   name: string;

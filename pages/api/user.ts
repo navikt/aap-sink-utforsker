@@ -1,5 +1,5 @@
 import { beskyttetApi } from '../../auth/beskyttetApi';
-import { validateAuthorization, validerToken } from '../../auth/verifyAccessToken';
+import { validerToken } from '../../auth/verifyAccessToken';
 
 const handler = beskyttetApi(async (req, res) => {
   const { authorization } = req.headers;
@@ -13,3 +13,5 @@ const handler = beskyttetApi(async (req, res) => {
     }
   }
 });
+
+export default handler;
