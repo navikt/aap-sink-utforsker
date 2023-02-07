@@ -2,6 +2,7 @@ import { Button, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 import { Buffer } from 'buffer';
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
+import dynamic from 'next/dynamic';
 
 const Søk = () => {
   const [value, setValue] = useState<string>('');
@@ -26,7 +27,7 @@ const Søk = () => {
       retning: 'DESC',
     });
 
-    const response = await fetch('api/?' + params, {
+    const response = await fetch('api/soker', {
       method: 'GET',
       headers: {
         personident: personident,
@@ -45,14 +46,18 @@ const Søk = () => {
       setData(parsedRespons);
     }
   }
+  const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
+  console.log(data);
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr', gridRowGap: '1rem' }}>
       <div style={{ width: '50%', display: 'grid', gridTemplateColumns: '1fr', gridRowGap: '1rem' }}>
         <TextField label={'Skriv inn noe her'} onChange={(e) => setValue(e.target.value)} />
         <Button onClick={() => doFetch(value)}>Søk</Button>
       </div>
-      {data && data.length > 0 && <div style={{ padding: '1rem' }}>{JSON.stringify(data)}</div>}
+      {data && data.length > 0 && (
+        <div style={{ padding: '1rem' }}>{<DynamicReactJson src={data} theme={'summerfruit'} />}</div>
+      )}
     </div>
   );
 };
