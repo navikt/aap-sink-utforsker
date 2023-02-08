@@ -1,10 +1,11 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { Layout } from '@/components/Layout/Layout';
 
 import '@navikt/ds-css';
 import '@navikt/ds-css-internal';
 import '../src/styles/index.css';
-import { Layout } from '@/components/Layout/Layout';
+import '../src/styles/globals.css';
 
 function App(props: AppProps) {
   const { Component, pageProps } = props;

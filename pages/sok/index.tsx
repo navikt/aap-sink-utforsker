@@ -4,6 +4,8 @@ import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
 import { JsonViewer } from '@/components/JsonViewer/JsonViewer';
 import { parseJSON } from '@/utils/jsonUtils';
 
+import styles from './Sok.module.css';
+
 const Søk = () => {
   const [personIdent, setPersonIdent] = useState<string>('');
   const [antall, setAntall] = useState<string>('1');
@@ -35,17 +37,9 @@ const Søk = () => {
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 4fr', gridRowGap: '1rem', height: '100%' }}>
+    <div className={styles.sok}>
       <form
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          paddingRight: '1rem',
-          gap: '1rem',
-          minHeight: '100vh',
-          height: 'inherit',
-          borderRight: '1px solid black',
-        }}
+        className={styles.sokForm}
         onSubmit={(e) => {
           e.preventDefault();
           fetchSøker();
@@ -64,9 +58,7 @@ const Søk = () => {
         </RadioGroup>
         <Button>Søk</Button>
       </form>
-      {data && data.length > 0 && (
-        <div style={{ padding: '1rem' }}>{<JsonViewer src={data} theme={'summerfruit'} />}</div>
-      )}
+      {data && data.length > 0 && <div className={'padding-m'}>{<JsonViewer src={data} theme={'summerfruit'} />}</div>}
     </div>
   );
 };
