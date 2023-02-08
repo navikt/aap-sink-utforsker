@@ -1,16 +1,18 @@
-import { Button, Radio, RadioGroup, TextField } from '@navikt/ds-react';
+import { Button, Radio, RadioGroup, Select, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
-import { JsonViewer } from '@/components/JsonViewer/JsonViewer';
+import { JsonViewer, jsonViewerThemes } from '@/components/JsonViewer/JsonViewer';
 import { parseJSON } from '@/utils/jsonUtils';
 
 import styles from './Sok.module.css';
+import { ThemeKeys } from 'react-json-view';
 
 const Søk = () => {
   const [personIdent, setPersonIdent] = useState<string>('');
   const [antall, setAntall] = useState<string>('1');
   const [retning, setRetning] = useState('DESC');
   const [data, setData] = useState<any[]>();
+  const [theme, setTheme] = useState<ThemeKeys>('summerfruit');
 
   async function fetchSøker() {
     const params = new URLSearchParams({
@@ -57,8 +59,22 @@ const Søk = () => {
           <Radio value={'DESC'}>Synkende</Radio>
         </RadioGroup>
         <Button>Søk</Button>
+        {data && (
+          <Select
+            size={'small'}
+            value={theme}
+            label={'Velg tema'}
+            onChange={(value) => setTheme(value.target.value as ThemeKeys)}
+          >
+            {jsonViewerThemes.map((theme, index) => (
+              <option key={index} value={theme}>
+                {theme}
+              </option>
+            ))}
+          </Select>
+        )}
       </form>
-      {data && data.length > 0 && <div className={'padding-m'}>{<JsonViewer src={data} theme={'summerfruit'} />}</div>}
+      {data && <div className={'padding-m'}>{<JsonViewer src={data} theme={theme} />}</div>}
     </div>
   );
 };
