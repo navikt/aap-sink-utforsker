@@ -1,17 +1,30 @@
 import { Button, Radio, RadioGroup, Select, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
-import { JsonViewer, jsonViewerThemes } from '@/components/JsonViewer/JsonViewer';
+import { jsonViewerThemes } from '@/components/JsonViewer/JsonViewer';
 import { parseJSON } from '@/utils/jsonUtils';
 
 import styles from './Sok.module.css';
 import { ThemeKeys } from 'react-json-view';
+import { Soekeresultat } from '@/components/Soekeresultat/Soekeresultat';
+
+export interface ResultatType {
+  personident: string;
+  dtoVersion?: string;
+  partition: number;
+  offset: number;
+  topic: string;
+  timestamp: number;
+  systemTimeMs: number;
+  streamTimeMs: number;
+  record: Object;
+}
 
 const Søk = () => {
   const [personIdent, setPersonIdent] = useState<string>('');
   const [antall, setAntall] = useState<string>('1');
   const [retning, setRetning] = useState('DESC');
-  const [data, setData] = useState<any[]>();
+  const [data, setData] = useState<ResultatType[]>();
   const [theme, setTheme] = useState<ThemeKeys>('apathy:inverted');
 
   async function fetchSøker() {
@@ -74,7 +87,7 @@ const Søk = () => {
           </Select>
         )}
       </form>
-      {data && <div className={'padding-m'}>{<JsonViewer src={data} theme={theme} />}</div>}
+      <Soekeresultat data={data} theme={theme} />
     </div>
   );
 };
