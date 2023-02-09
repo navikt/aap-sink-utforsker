@@ -35,6 +35,9 @@ spec:
   azure:
     application:
       enabled: true
-      allowAllUsers: true
+      tenant: nav.no
+      claims:
+        groups:
+          - id: "66f2ac6d-9ca0-4c1d-962b-19a9fb98a8f3"
     sidecar:
       enabled: true
