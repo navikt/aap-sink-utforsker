@@ -12,7 +12,7 @@ const Søk = () => {
   const [antall, setAntall] = useState<string>('1');
   const [retning, setRetning] = useState('DESC');
   const [data, setData] = useState<any[]>();
-  const [theme, setTheme] = useState<ThemeKeys>('summerfruit');
+  const [theme, setTheme] = useState<ThemeKeys>('apathy:inverted');
 
   async function fetchSøker() {
     const params = new URLSearchParams({
