@@ -1,18 +1,17 @@
-import { ThemeKeys } from 'react-json-view';
 import { Table } from '@navikt/ds-react';
 
 import styles from './Soekeresultat.module.css';
-import { JsonViewer } from '@/components/JsonViewer/JsonViewer';
 import { ResultatType } from '../../../pages/sok';
+import { defaultStyles, JsonView } from 'react-json-view-lite';
+import 'react-json-view-lite/dist/index.css';
 
 interface DataradProps {
   rad: ResultatType;
-  theme: ThemeKeys;
 }
 const Datarad = (props: DataradProps) => {
   const { rad } = props;
   return (
-    <Table.ExpandableRow content={<JsonViewer src={rad.record} theme={props.theme} />}>
+    <Table.ExpandableRow content={<JsonView data={rad.record} style={defaultStyles} />}>
       <Table.DataCell>{rad.personident}</Table.DataCell>
       <Table.DataCell>{rad.dtoVersion}</Table.DataCell>
       <Table.DataCell>{rad.partition}</Table.DataCell>
@@ -27,7 +26,6 @@ const Datarad = (props: DataradProps) => {
 
 interface SoekeresultatProps {
   data: ResultatType[] | undefined;
-  theme: ThemeKeys;
 }
 const Soekeresultat = (props: SoekeresultatProps) => {
   if (!props.data) {
@@ -50,7 +48,7 @@ const Soekeresultat = (props: SoekeresultatProps) => {
       </Table.Header>
       <Table.Body>
         {props.data.map((rad, index) => (
-          <Datarad rad={rad} key={index} theme={props.theme} />
+          <Datarad rad={rad} key={index} />
         ))}
       </Table.Body>
     </Table>
