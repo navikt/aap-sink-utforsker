@@ -1,12 +1,12 @@
-import { Button, Radio, RadioGroup, Select, TextField } from '@navikt/ds-react';
+import { Alert, Button, Radio, RadioGroup, Select, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
 import { jsonViewerThemes } from '@/components/JsonViewer/JsonViewer';
-import { parseJSON } from '@/utils/jsonUtils';
 
 import styles from './Sok.module.css';
 import { ThemeKeys } from 'react-json-view';
 import { Soekeresultat } from '@/components/Soekeresultat/Soekeresultat';
+import { useFetch } from '@/hooks/useFetch';
 
 export interface ResultatType {
   personident: string;
@@ -24,32 +24,15 @@ const Søk = () => {
   const [personIdent, setPersonIdent] = useState<string>('');
   const [antall, setAntall] = useState<string>('1');
   const [retning, setRetning] = useState('DESC');
-  const [data, setData] = useState<ResultatType[]>();
   const [theme, setTheme] = useState<ThemeKeys>('apathy:inverted');
 
-  async function fetchSøker() {
-    const params = new URLSearchParams({
-      antall,
-      retning,
-    });
-
-    const response = await fetch(`api/sok?${params}`, {
-      headers: {
-        personident: personIdent,
-      },
-    });
-
-    if (response.ok) {
-      const json: any[] = await response.json();
-
-      const parsedRespons = json.map((obj) => {
-        obj.record = parseJSON(obj.record);
-        return obj;
-      });
-
-      setData(parsedRespons);
-    }
-  }
+  const params = new URLSearchParams({
+    antall,
+    retning,
+  });
+  const { fetchData, data, isLoading, error } = useFetch(`api/sok?${params}`, {
+    headers: { personident: personIdent },
+  });
 
   return (
     <div className={styles.sok}>
@@ -57,7 +40,7 @@ const Søk = () => {
         className={styles.sokForm}
         onSubmit={(e) => {
           e.preventDefault();
-          fetchSøker();
+          fetchData();
         }}
       >
         <TextField
@@ -71,7 +54,7 @@ const Søk = () => {
           <Radio value={'ASC'}>Stigende</Radio>
           <Radio value={'DESC'}>Synkende</Radio>
         </RadioGroup>
-        <Button>Søk</Button>
+        <Button loading={isLoading}>Søk</Button>
         {data && (
           <Select
             size={'small'}
@@ -87,6 +70,7 @@ const Søk = () => {
           </Select>
         )}
       </form>
+      {error && <Alert variant={'error'}>Feil ved henting av data. {error}</Alert>}
       <Soekeresultat data={data} theme={theme} />
     </div>
   );
