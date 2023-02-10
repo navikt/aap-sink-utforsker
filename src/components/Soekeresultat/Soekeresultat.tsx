@@ -4,6 +4,7 @@ import styles from './Soekeresultat.module.css';
 import { ResultatType } from '../../../pages/sok';
 import { defaultStyles, JsonView } from 'react-json-view-lite';
 import 'react-json-view-lite/dist/index.css';
+import { sortData, useHandleSort } from '@/components/Soekeresultat/SoekeresultatUtil';
 
 interface DataradProps {
   rad: ResultatType;
@@ -27,27 +28,47 @@ const Datarad = (props: DataradProps) => {
 interface SoekeresultatProps {
   data: ResultatType[] | undefined;
 }
+
 const Soekeresultat = (props: SoekeresultatProps) => {
+  const { sort, handleSort } = useHandleSort();
+
   if (!props.data) {
     return null;
   }
+
+  const sortedData = sortData(props.data, sort);
+
   return (
-    <Table className={styles.resultatTabell}>
+    <Table className={styles.resultatTabell} sort={sort} onSortChange={(sortKey) => handleSort(sortKey)}>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell />
           <Table.HeaderCell>Personident</Table.HeaderCell>
-          <Table.HeaderCell>DTO version</Table.HeaderCell>
-          <Table.HeaderCell>Partition</Table.HeaderCell>
-          <Table.HeaderCell>Offset</Table.HeaderCell>
-          <Table.HeaderCell>Topic</Table.HeaderCell>
-          <Table.HeaderCell>Timestamp</Table.HeaderCell>
-          <Table.HeaderCell>SystemTimeMs</Table.HeaderCell>
-          <Table.HeaderCell>StreamTimeMs</Table.HeaderCell>
+          <Table.ColumnHeader sortKey={'dtoVersion'} sortable>
+            DTO version
+          </Table.ColumnHeader>
+          <Table.ColumnHeader sortKey={'partition'} sortable>
+            Partition
+          </Table.ColumnHeader>
+          <Table.ColumnHeader sortKey={'offset'} sortable>
+            Offset
+          </Table.ColumnHeader>
+          <Table.ColumnHeader sortKey={'topic'} sortable>
+            Topic
+          </Table.ColumnHeader>
+          <Table.ColumnHeader sortKey={'timestamp'} sortable>
+            Timestamp
+          </Table.ColumnHeader>
+          <Table.ColumnHeader sortKey={'systemTimeMs'} sortable>
+            SystemTimeMs
+          </Table.ColumnHeader>
+          <Table.ColumnHeader sortKey={'streamTimeMs'} sortable>
+            StreamTimeMs
+          </Table.ColumnHeader>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {props.data.map((rad, index) => (
+        {sortedData.map((rad, index) => (
           <Datarad rad={rad} key={index} />
         ))}
       </Table.Body>
