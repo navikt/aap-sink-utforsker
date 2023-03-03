@@ -8,7 +8,6 @@ export function parseJSON(data: string) {
     const buf = Buffer.from(data, 'base64');
     return JSON.parse(buf.toString());
   } catch (error) {
-    console.error('Klarte ikke å parse json. ' + error);
-    console.error(data);
+    throw new Error('Klarte ikke å parse json' + error);
   }
 }

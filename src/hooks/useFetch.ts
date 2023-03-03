@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { parseJSON } from '@/utils/jsonUtils';
+import { Buffer } from 'buffer';
 
 const useFetch = (url: string, headers: object) => {
   const [data, setData] = useState<any | undefined>(undefined);
@@ -13,7 +14,11 @@ const useFetch = (url: string, headers: object) => {
       if (res.ok) {
         const response = await res.json();
         const parsedRespons = response.map((obj: { record: string }) => {
-          obj.record = parseJSON(obj.record);
+          try {
+            obj.record = parseJSON(obj.record);
+          } catch (e) {
+            obj.record = Buffer.from(obj.record, 'base64').toString();
+          }
           return obj;
         });
         setData(parsedRespons);

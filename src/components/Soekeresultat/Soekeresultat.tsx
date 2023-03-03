@@ -6,6 +6,14 @@ import { defaultStyles, JsonView } from 'react-json-view-lite';
 import 'react-json-view-lite/dist/index.css';
 import { sortData, useHandleSort } from '@/components/Soekeresultat/SoekeresultatUtil';
 import { CopyToClipboard } from '@navikt/ds-react-internal';
+import { StatusIcon } from './StatusIcon';
+
+const ExpandableContent = ({ data }: { data: string | object }) => {
+  if (typeof data === 'string') {
+    return <span>{data}</span>;
+  }
+  return <JsonView data={data} style={defaultStyles} />;
+};
 
 interface DataradProps {
   rad: ResultatType;
@@ -13,7 +21,10 @@ interface DataradProps {
 const Datarad = (props: DataradProps) => {
   const { rad } = props;
   return (
-    <Table.ExpandableRow content={<JsonView data={rad.record} style={defaultStyles} />}>
+    <Table.ExpandableRow content={<ExpandableContent data={rad.record} />}>
+      <Table.DataCell>
+        <StatusIcon data={rad.record} />
+      </Table.DataCell>
       <Table.DataCell>{rad.personident}</Table.DataCell>
       <Table.DataCell>{rad.dtoVersion}</Table.DataCell>
       <Table.DataCell>{rad.partition}</Table.DataCell>
@@ -46,6 +57,7 @@ const Soekeresultat = (props: SoekeresultatProps) => {
     <Table className={styles.resultatTabell} sort={sort} onSortChange={(sortKey) => handleSort(sortKey)}>
       <Table.Header>
         <Table.Row>
+          <Table.HeaderCell />
           <Table.HeaderCell />
           <Table.HeaderCell>Personident</Table.HeaderCell>
           <Table.ColumnHeader sortKey={'dtoVersion'} sortable>
