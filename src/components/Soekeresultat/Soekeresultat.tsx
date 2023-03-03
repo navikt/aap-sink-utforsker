@@ -5,6 +5,7 @@ import { ResultatType } from '../../../pages/sok';
 import { defaultStyles, JsonView } from 'react-json-view-lite';
 import 'react-json-view-lite/dist/index.css';
 import { sortData, useHandleSort } from '@/components/Soekeresultat/SoekeresultatUtil';
+import { CopyToClipboard } from '@navikt/ds-react-internal';
 
 interface DataradProps {
   rad: ResultatType;
@@ -21,6 +22,9 @@ const Datarad = (props: DataradProps) => {
       <Table.DataCell>{rad.timestamp}</Table.DataCell>
       <Table.DataCell>{rad.systemTimeMs}</Table.DataCell>
       <Table.DataCell>{rad.streamTimeMs}</Table.DataCell>
+      <Table.DataCell>
+        <CopyToClipboard copyText={JSON.stringify(rad.record)} popoverText={'Yeah baby!'} />
+      </Table.DataCell>
     </Table.ExpandableRow>
   );
 };
@@ -65,6 +69,7 @@ const Soekeresultat = (props: SoekeresultatProps) => {
           <Table.ColumnHeader sortKey={'streamTimeMs'} sortable>
             StreamTimeMs
           </Table.ColumnHeader>
+          <Table.ColumnHeader>Kopier JSON</Table.ColumnHeader>
         </Table.Row>
       </Table.Header>
       <Table.Body>
