@@ -8,15 +8,7 @@ import { sortData, useHandleSort } from '@/components/Soekeresultat/Soekeresulta
 import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { StatusIcon } from './StatusIcon';
 import { DiffViewer } from '@/components/DiffViewer';
-import { useReducer } from 'react';
-
-enum DiffActions {
-  ADD_RIGHT = 'ADD_RIGHT',
-  ADD_LEFT = 'ADD_LEFT',
-  REMOVE_RIGHT = 'REMOVE_RIGHT',
-  REMOVE_LEFT = 'REMOVE_LEFT',
-  CLEAR_ALL = 'CLEAR_ALL',
-}
+import { DiffActions, useDiff } from '@/hooks/useDiff';
 
 const ExpandableContent = ({ data }: { data: string | object }) => {
   if (typeof data === 'string') {
@@ -64,56 +56,8 @@ interface SoekeresultatProps {
   data: ResultatType[] | undefined;
 }
 
-type ActionType = {
-  type: DiffActions;
-  payload?: ResultatType;
-};
-
-export interface DiffState {
-  leftSide?: ResultatType;
-  rightSide?: ResultatType;
-}
-
-function reducer(state: DiffState, action: ActionType) {
-  switch (action.type) {
-    case DiffActions.ADD_LEFT: {
-      return {
-        ...state,
-        leftSide: action.payload,
-      };
-    }
-    case DiffActions.ADD_RIGHT: {
-      return {
-        ...state,
-        rightSide: action.payload,
-      };
-    }
-    case DiffActions.REMOVE_LEFT: {
-      return {
-        ...state,
-        leftSide: undefined,
-      };
-    }
-    case DiffActions.REMOVE_RIGHT: {
-      return {
-        ...state,
-        rightSide: undefined,
-      };
-    }
-    case DiffActions.CLEAR_ALL: {
-      return {
-        ...state,
-        leftSide: undefined,
-        rightSide: undefined,
-      };
-    }
-    default:
-      console.warn('Unknown action:' + action.type);
-      return state;
-  }
-}
 const Soekeresultat = (props: SoekeresultatProps) => {
-  const [state, dispatch] = useReducer(reducer, {});
+  const { diffState, dispatch } = useDiff();
   const { sort, handleSort } = useHandleSort();
 
   if (!props.data) {
@@ -167,8 +111,8 @@ const Soekeresultat = (props: SoekeresultatProps) => {
         </Table.Body>
       </Table>
       <DiffViewer
-        leftSide={state.leftSide}
-        rightSide={state.rightSide}
+        leftSide={diffState.leftSide}
+        rightSide={diffState.rightSide}
         clearAll={() => dispatch({ type: DiffActions.CLEAR_ALL })}
       />
     </section>
