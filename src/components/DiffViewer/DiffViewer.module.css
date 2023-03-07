@@ -1,0 +1,59 @@
+.diffContainer {
+    background: hsl(0 100% 100%);
+
+    padding: 1rem;
+
+    border-left: 1px solid hsl(0 0% 0%);
+    min-width: 20rem;
+}
+
+.stickyContainer {
+    position: sticky;
+    top: 1rem;
+}
+
+.buttonRow {
+    margin-top: 1rem;
+}
+
+.buttonRow > button {
+    margin-right: 1rem;
+}
+
+.bold {
+    font-weight: 900;
+}
+
+.key {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.value {
+    font-weight: 600;
+}
+
+.summary {
+    display: flex;
+    gap: 1rem;
+}
+
+.summaryRow {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.diffSide {
+    min-width: 40%;
+    max-width: 50%;
+    padding: 0.5rem;
+}
+
+.diffSide + .diffSide {
+    border-left: 1px solid hsl(0 0% 0%);
+}
+
+.modal {
+    min-width: 50%;
+}

@@ -23,6 +23,7 @@
     "next": "13.1.6",
     "openid-client": "^5.4.0",
     "react": "18.2.0",
+    "react-diff-viewer": "^3.1.1",
     "react-dom": "18.2.0",
     "react-json-view-lite": "^0.9.4",
     "swr": "2.0.3",

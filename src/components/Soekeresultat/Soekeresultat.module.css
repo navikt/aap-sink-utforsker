@@ -2,3 +2,8 @@
     height: fit-content;
     margin-left: 1rem;
 }
+
+.resultatSeksjon {
+    display: flex;
+    flex-direction: row;
+}
