@@ -9,6 +9,7 @@ import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { StatusIcon } from './StatusIcon';
 import { DiffViewer } from '@/components/DiffViewer';
 import { DiffActions, useDiff } from '@/hooks/useDiff';
+import { timestampFromMilliSeconds } from '@/utils/dateUtils';
 
 const ExpandableContent = ({ data }: { data: string | object }) => {
   if (typeof data === 'string') {
@@ -34,7 +35,7 @@ const Datarad = (props: DataradProps) => {
       <Table.DataCell>{rad.partition}</Table.DataCell>
       <Table.DataCell>{rad.offset}</Table.DataCell>
       <Table.DataCell>{rad.topic}</Table.DataCell>
-      <Table.DataCell>{rad.timestamp}</Table.DataCell>
+      <Table.DataCell>{timestampFromMilliSeconds(rad.timestamp)}</Table.DataCell>
       <Table.DataCell>{rad.systemTimeMs}</Table.DataCell>
       <Table.DataCell>{rad.streamTimeMs}</Table.DataCell>
       <Table.DataCell>
