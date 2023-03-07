@@ -1,7 +1,6 @@
 import { Button, Modal } from '@navikt/ds-react';
 import { useState } from 'react';
 import { ResultatType } from '../../../pages/sok';
-// import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer';
 
 import styles from './DiffViewer.module.css';
