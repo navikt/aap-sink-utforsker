@@ -7,9 +7,14 @@ import '@navikt/ds-css-internal';
 import '../src/styles/index.css';
 import '../src/styles/globals.css';
 import { SWRConfig } from 'swr/_internal';
+import { Modal } from '@navikt/ds-react';
 
 function App(props: AppProps) {
   const { Component, pageProps } = props;
+
+  if (Modal.setAppElement) {
+    Modal.setAppElement('#__next');
+  }
 
   return (
     <>
