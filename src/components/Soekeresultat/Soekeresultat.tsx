@@ -22,11 +22,15 @@ interface DataradProps {
   rad: ResultatType;
   addLeft: Function;
   addRight: Function;
+  rowIsInDiff: boolean;
 }
 const Datarad = (props: DataradProps) => {
-  const { rad, addLeft, addRight } = props;
+  const { rad, addLeft, addRight, rowIsInDiff } = props;
   return (
-    <Table.ExpandableRow content={<ExpandableContent data={rad.record} />}>
+    <Table.ExpandableRow
+      content={<ExpandableContent data={rad.record} />}
+      className={rowIsInDiff ? `${styles.inDiff}` : ''}
+    >
       <Table.DataCell>
         <StatusIcon data={rad.record} />
       </Table.DataCell>
@@ -66,6 +70,23 @@ const Soekeresultat = (props: SoekeresultatProps) => {
   }
 
   const sortedData = sortData(props.data, sort);
+
+  function radErLik(side: ResultatType, rad: ResultatType) {
+    return side.offset === rad.offset && side.partition === rad.partition && side.topic === rad.topic;
+  }
+  function radErLagtIDiff(rad: ResultatType) {
+    if (!diffState.leftSide && !diffState.rightSide) {
+      return false;
+    }
+    let erLik = false;
+    if (diffState.leftSide) {
+      erLik = radErLik(diffState.leftSide, rad);
+    }
+    if (diffState.rightSide && !erLik) {
+      erLik = radErLik(diffState.rightSide, rad);
+    }
+    return erLik;
+  }
 
   return (
     <section className={styles.resultatSeksjon}>
@@ -107,6 +128,7 @@ const Soekeresultat = (props: SoekeresultatProps) => {
               key={index}
               addLeft={() => dispatch({ type: DiffActions.ADD_LEFT, payload: rad })}
               addRight={() => dispatch({ type: DiffActions.ADD_RIGHT, payload: rad })}
+              rowIsInDiff={radErLagtIDiff(rad)}
             />
           ))}
         </Table.Body>
