@@ -91,6 +91,11 @@ const Soekeresultat = (props: SoekeresultatProps) => {
 
   return (
     <section className={styles.resultatSeksjon}>
+      <DiffViewer
+        leftSide={diffState.leftSide}
+        rightSide={diffState.rightSide}
+        clearAll={() => dispatch({ type: DiffActions.CLEAR_ALL })}
+      />
       <Table className={styles.resultatTabell} sort={sort} onSortChange={(sortKey) => handleSort(sortKey)}>
         <Table.Header>
           <Table.Row>
@@ -134,11 +139,6 @@ const Soekeresultat = (props: SoekeresultatProps) => {
           ))}
         </Table.Body>
       </Table>
-      <DiffViewer
-        leftSide={diffState.leftSide}
-        rightSide={diffState.rightSide}
-        clearAll={() => dispatch({ type: DiffActions.CLEAR_ALL })}
-      />
     </section>
   );
 };

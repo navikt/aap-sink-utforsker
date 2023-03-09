@@ -78,16 +78,18 @@ const DiffViewer = ({ leftSide, rightSide, clearAll }: Props) => {
 
   return (
     <section className={styles.diffContainer}>
-      <div className={styles.stickyContainer}>
-        <DiffSummary leftSide={leftSide} rightSide={rightSide} />
-        <div className={styles.buttonRow}>
-          <Button variant={'primary'} onClick={() => (leftSide && rightSide ? toggleDiffOpen(true) : null)}>
-            Vis diff
-          </Button>
-          <Button onClick={() => clearAll()} variant={'secondary'}>
-            Lukk
-          </Button>
-        </div>
+      <DiffSummary leftSide={leftSide} rightSide={rightSide} />
+      <div className={styles.buttonRow}>
+        <Button
+          variant={'primary'}
+          onClick={() => (leftSide && rightSide ? toggleDiffOpen(true) : null)}
+          size={'small'}
+        >
+          Vis diff
+        </Button>
+        <Button onClick={() => clearAll()} variant={'secondary'} size={'small'}>
+          Lukk
+        </Button>
       </div>
       <Modal open={diffOpen} onClose={() => toggleDiffOpen(false)} className={styles.modal}>
         <DiffVisning leftSide={leftSide} rightSide={rightSide} />

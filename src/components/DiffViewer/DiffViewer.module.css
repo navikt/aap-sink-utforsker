@@ -3,14 +3,13 @@
 
     padding: 1rem;
 
-    border-left: 1px solid hsl(0 0% 0%);
+    border-bottom: 1px solid hsl(0 0% 0%);
     min-width: 20rem;
+
+    position: sticky;
+    top: 0;
 }
 
-.stickyContainer {
-    position: sticky;
-    top: 1rem;
-}
 
 .buttonRow {
     margin-top: 1rem;
@@ -25,8 +24,10 @@
 }
 
 .key {
+    display: inline-block;
     font-weight: 500;
     font-size: 0.9rem;
+    min-width: 5rem;
 }
 
 .value {
@@ -40,13 +41,10 @@
 
 .summaryRow {
     margin-top: 0.5rem;
-    display: flex;
-    justify-content: space-between;
 }
 
 .diffSide {
-    min-width: 40%;
-    max-width: 50%;
+    min-width: 15rem;
     padding: 0.5rem;
 }
 
