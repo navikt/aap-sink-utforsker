@@ -26,12 +26,14 @@ const DiffVisning = ({ leftSide, rightSide }: DiffVisningProps) => {
       compareMethod={DiffMethod.WORDS}
       leftTitle={
         <div>
+          <div>Topic: {leftSide.topic}</div>
           <div>Partition: {leftSide.partition}</div>
           <div>Offset: {leftSide.offset}</div>
         </div>
       }
       rightTitle={
         <div>
+          <div>Topic: {rightSide.topic}</div>
           <div>Partition: {rightSide.partition}</div>
           <div>Offset: {rightSide.offset}</div>
         </div>
@@ -40,7 +42,11 @@ const DiffVisning = ({ leftSide, rightSide }: DiffVisningProps) => {
   );
 };
 
-const SummaryRow = ({ noekkel, verdi }: { noekkel: string; verdi?: number }) => (
+interface SummaryRowProps {
+  noekkel: string;
+  verdi?: number | string;
+}
+const SummaryRow = ({ noekkel, verdi }: SummaryRowProps) => (
   <div className={styles.summaryRow}>
     <span className={styles.key}>{noekkel}</span>
     <span className={styles.value}>{verdi}</span>
@@ -56,6 +62,7 @@ const DiffSummary = ({ leftSide, rightSide }: { leftSide?: ResultatType; rightSi
       {sider.map((side, index) => (
         <div key={index} className={styles.diffSide}>
           <div className={styles.bold}>{side.side}</div>
+          <SummaryRow noekkel={'Topic'} verdi={side.object?.topic} />
           <SummaryRow noekkel={'Partition'} verdi={side.object?.partition} />
           <SummaryRow noekkel={'Offset'} verdi={side.object?.offset} />
         </div>
