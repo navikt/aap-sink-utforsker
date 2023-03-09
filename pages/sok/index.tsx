@@ -31,6 +31,8 @@ const Søk = () => {
     headers: { personident: personIdent },
   });
 
+  const partisjonerIResultat = data && new Set(data.map((rad: ResultatType) => rad.partition));
+
   return (
     <div className={styles.sok}>
       <form
@@ -54,7 +56,7 @@ const Søk = () => {
         <Button loading={isLoading}>Søk</Button>
       </form>
       {error && <Alert variant={'error'}>Feil ved henting av data. {error}</Alert>}
-      <Soekeresultat data={data} />
+      <Soekeresultat data={data} partisjonerIResultat={partisjonerIResultat} />
     </div>
   );
 };

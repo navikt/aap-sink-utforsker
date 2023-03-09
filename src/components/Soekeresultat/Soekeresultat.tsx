@@ -1,4 +1,4 @@
-import { Button, Table } from '@navikt/ds-react';
+import { Alert, Button, Table } from '@navikt/ds-react';
 
 import styles from './Soekeresultat.module.css';
 import { ResultatType } from '../../../pages/sok';
@@ -60,17 +60,18 @@ const Datarad = (props: DataradProps) => {
 
 interface SoekeresultatProps {
   data: ResultatType[] | undefined;
+  partisjonerIResultat: Set<number> | undefined;
 }
 
-const Soekeresultat = (props: SoekeresultatProps) => {
+const Soekeresultat = ({ data, partisjonerIResultat }: SoekeresultatProps) => {
   const { diffState, dispatch } = useDiff();
   const { sort, handleSort } = useHandleSort();
 
-  if (!props.data) {
+  if (!data) {
     return null;
   }
 
-  const sortedData = sortData(props.data, sort);
+  const sortedData = sortData(data, sort);
 
   function radErLik(side: ResultatType, rad: ResultatType) {
     return side.offset === rad.offset && side.partition === rad.partition && side.topic === rad.topic;
@@ -96,6 +97,9 @@ const Soekeresultat = (props: SoekeresultatProps) => {
         rightSide={diffState.rightSide}
         clearAll={() => dispatch({ type: DiffActions.CLEAR_ALL })}
       />
+      {partisjonerIResultat && partisjonerIResultat.size > 1 && (
+        <Alert variant={'error'}>Resultat ligger på følgende partisjoner: {partisjonerIResultat}</Alert>
+      )}
       <Table className={styles.resultatTabell} sort={sort} onSortChange={(sortKey) => handleSort(sortKey)}>
         <Table.Header>
           <Table.Row>
