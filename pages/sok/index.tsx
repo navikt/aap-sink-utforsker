@@ -20,7 +20,7 @@ export interface ResultatType {
 
 const Søk = () => {
   const [personIdent, setPersonIdent] = useState<string>('');
-  const [antall, setAntall] = useState<string>('1');
+  const [antall, setAntall] = useState<string>('20');
   const [retning, setRetning] = useState('DESC');
 
   const params = new URLSearchParams({
