@@ -34,6 +34,15 @@ const Datarad = (props: DataradProps) => {
       <Table.DataCell>
         <StatusIcon data={rad.record} />
       </Table.DataCell>
+      <Table.DataCell>
+        <Button variant={'secondary'} onClick={() => addLeft()} size={'small'}>
+          V
+        </Button>
+        <Button variant={'secondary'} onClick={() => addRight()} size={'small'}>
+          H
+        </Button>
+      </Table.DataCell>
+
       <Table.DataCell>{rad.personident}</Table.DataCell>
       <Table.DataCell>{rad.dtoVersion}</Table.DataCell>
       <Table.DataCell>{rad.partition}</Table.DataCell>
@@ -44,14 +53,6 @@ const Datarad = (props: DataradProps) => {
       <Table.DataCell>{rad.streamTimeMs}</Table.DataCell>
       <Table.DataCell>
         <CopyToClipboard copyText={JSON.stringify(rad.record)} popoverText={'Yeah baby!'} />
-      </Table.DataCell>
-      <Table.DataCell>
-        <Button variant={'secondary'} onClick={() => addLeft()}>
-          Venstre
-        </Button>
-        <Button variant={'secondary'} onClick={() => addRight()}>
-          Høyre
-        </Button>
       </Table.DataCell>
     </Table.ExpandableRow>
   );
@@ -95,6 +96,7 @@ const Soekeresultat = (props: SoekeresultatProps) => {
           <Table.Row>
             <Table.HeaderCell />
             <Table.HeaderCell />
+            <Table.ColumnHeader>Diff</Table.ColumnHeader>
             <Table.HeaderCell>Personident</Table.HeaderCell>
             <Table.ColumnHeader sortKey={'dtoVersion'} sortable>
               DTO version
@@ -118,7 +120,6 @@ const Soekeresultat = (props: SoekeresultatProps) => {
               StreamTimeMs
             </Table.ColumnHeader>
             <Table.ColumnHeader>Kopier JSON</Table.ColumnHeader>
-            <Table.ColumnHeader>Diff</Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
