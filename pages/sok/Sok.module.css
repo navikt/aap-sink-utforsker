@@ -1,4 +1,4 @@
-.sok {
+.container {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-row-gap: 1rem;
@@ -10,7 +10,17 @@
   flex-direction: column;
   padding-right: 1rem;
   gap: 1rem;
-  min-height: 100vh;
-  height: inherit;
-  border-right: 1px solid black;
+  /*min-height: 100vh;*/
+}
+
+.soekeverktoey {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid hsl(0 0% 0%);
+}
+
+.filter {
+  margin-top: 1rem;
+  margin-right: 1rem;
+  border-top: 2px solid hsl(0 0% 0%);
 }

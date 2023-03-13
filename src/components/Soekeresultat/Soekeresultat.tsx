@@ -61,17 +61,18 @@ const Datarad = (props: DataradProps) => {
 interface SoekeresultatProps {
   data: ResultatType[] | undefined;
   partisjonerIResultat: Set<number> | undefined;
+  topicFilter: string[];
 }
 
-const Soekeresultat = ({ data, partisjonerIResultat }: SoekeresultatProps) => {
+const Soekeresultat = ({ data, partisjonerIResultat, topicFilter }: SoekeresultatProps) => {
   const { diffState, dispatch } = useDiff();
   const { sort, handleSort } = useHandleSort();
 
   if (!data) {
     return null;
   }
-
-  const sortedData = sortData(data, sort);
+  const filteredData = topicFilter.length > 0 ? data.filter((rad) => topicFilter.includes(rad.topic)) : data;
+  const sortedAndFilteredData = sortData(filteredData, sort);
 
   function radErLik(side: ResultatType, rad: ResultatType) {
     return side.offset === rad.offset && side.partition === rad.partition && side.topic === rad.topic;
@@ -132,7 +133,7 @@ const Soekeresultat = ({ data, partisjonerIResultat }: SoekeresultatProps) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {sortedData.map((rad, index) => (
+          {sortedAndFilteredData.map((rad, index) => (
             <Datarad
               rad={rad}
               key={index}
