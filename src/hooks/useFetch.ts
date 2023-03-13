@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { parseJSON } from '@/utils/jsonUtils';
 import { Buffer } from 'buffer';
 
-const useFetch = (url: string, headers: object) => {
+const useFetch = () => {
   const [data, setData] = useState<any | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const fetchData = async () => {
+  const fetchData = async (url: string, headers: object) => {
     setIsLoading(true);
     try {
       const res = await fetch(url, { ...headers });

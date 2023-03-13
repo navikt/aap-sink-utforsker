@@ -1,5 +1,5 @@
 import { Alert, Button, Radio, RadioGroup, TextField } from '@navikt/ds-react';
-import { useState } from 'react';
+import { FormEvent, RefObject, useRef } from 'react';
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
 
 import styles from './Sok.module.css';
@@ -18,40 +18,52 @@ export interface ResultatType {
   record: Object;
 }
 
-const Søk = () => {
-  const [personIdent, setPersonIdent] = useState<string>('');
-  const [antall, setAntall] = useState<string>('20');
-  const [retning, setRetning] = useState('DESC');
+function validatePid(pidRef: RefObject<HTMLInputElement>) {
+  return pidRef.current?.value.match(/^\d{11}$/);
+}
 
-  const params = new URLSearchParams({
-    antall,
-    retning,
-  });
-  const { fetchData, data, isLoading, error } = useFetch(`api/sok?${params}`, {
-    headers: { personident: personIdent },
-  });
+function validateAntall(antallRef: RefObject<HTMLInputElement>) {
+  return antallRef.current?.value.match(/^\d+$/);
+}
+
+function validateFields(pidRef: RefObject<HTMLInputElement>, antallRef: RefObject<HTMLInputElement>) {
+  const pidIsValid = validatePid(pidRef);
+  const antallIsValid = validateAntall(antallRef);
+  return pidIsValid && antallIsValid;
+}
+const Søk = () => {
+  const pidRef = useRef<HTMLInputElement>(null);
+  const antallRef = useRef<HTMLInputElement>(null);
+  const retningRef = useRef<HTMLInputElement>(null);
+
+  const { fetchData, data, isLoading, error } = useFetch();
 
   const partisjonerIResultat = data && new Set(data.map((rad: ResultatType) => rad.partition));
 
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const isValid = validateFields(pidRef, antallRef);
+    if (isValid) {
+      // @ts-ignore -- håndtert i validateFields
+      const params = new URLSearchParams({ antall: antallRef.current.value, retning: retningRef.current.value });
+      // @ts-ignorehåndtert i validateFields
+      fetchData(`api/sok?${params}`, { headers: { personident: pidRef.current.value } });
+    }
+  }
+
   return (
     <div className={styles.sok}>
-      <form
-        className={styles.sokForm}
-        onSubmit={(e) => {
-          e.preventDefault();
-          fetchData();
-        }}
-      >
-        <TextField
-          size={'small'}
-          value={personIdent}
-          label={'Personident'}
-          onChange={(e) => setPersonIdent(e.target.value)}
-        />
-        <TextField size={'small'} value={antall} label={'Antall'} onChange={(e) => setAntall(e.target.value)} />
-        <RadioGroup size={'small'} legend={'Hvilken retning?'} onChange={(value) => setRetning(value)} value={retning}>
-          <Radio value={'ASC'}>Stigende</Radio>
-          <Radio value={'DESC'}>Synkende</Radio>
+      <form className={styles.sokForm} onSubmit={(e) => handleSubmit(e)}>
+        <TextField size={'small'} label={'Personident'} ref={pidRef} />
+        <TextField size={'small'} label={'Antall'} defaultValue={'20'} ref={antallRef} />
+        <RadioGroup size={'small'} legend={'Hvilken retning?'} defaultValue={'DESC'}>
+          <Radio value={'ASC'} ref={retningRef}>
+            Stigende
+          </Radio>
+          <Radio value={'DESC'} ref={retningRef}>
+            Synkende
+          </Radio>
         </RadioGroup>
         <Button loading={isLoading}>Søk</Button>
       </form>
