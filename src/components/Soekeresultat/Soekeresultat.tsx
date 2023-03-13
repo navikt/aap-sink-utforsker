@@ -49,8 +49,8 @@ const Datarad = (props: DataradProps) => {
       <Table.DataCell>{rad.offset}</Table.DataCell>
       <Table.DataCell>{rad.topic}</Table.DataCell>
       <Table.DataCell>{timestampFromMilliSeconds(rad.timestamp)}</Table.DataCell>
-      <Table.DataCell>{rad.systemTimeMs}</Table.DataCell>
-      <Table.DataCell>{rad.streamTimeMs}</Table.DataCell>
+      <Table.DataCell>{timestampFromMilliSeconds(rad.systemTimeMs)}</Table.DataCell>
+      <Table.DataCell>{timestampFromMilliSeconds(rad.streamTimeMs)}</Table.DataCell>
       <Table.DataCell>
         <CopyToClipboard copyText={JSON.stringify(rad.record)} popoverText={'Yeah baby!'} />
       </Table.DataCell>
