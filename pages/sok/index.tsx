@@ -75,7 +75,7 @@ const Søk = () => {
           <Heading level={'2'} size={'small'}>
             Filter
           </Heading>
-          <Filters data={data} updateFilter={updateFilter} />
+          <Filters data={data} updateFilter={updateFilter} isLoading={isLoading} />
         </div>
       </aside>
       <Soekeresultat data={data} partisjonerIResultat={partisjonerIResultat} topicFilter={filter} />
