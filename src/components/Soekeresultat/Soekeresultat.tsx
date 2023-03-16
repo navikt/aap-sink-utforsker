@@ -8,8 +8,9 @@ import { sortData, useHandleSort } from '@/components/Soekeresultat/Soekeresulta
 import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { StatusIcon } from './StatusIcon';
 import { DiffViewer } from '@/components/DiffViewer';
-import { DiffActions, useDiff } from '@/hooks/useDiff';
+import { ActionType, DiffActions, useDiff } from '@/hooks/useDiff';
 import { timestampFromMilliSeconds } from '@/utils/dateUtils';
+import { Dispatch } from 'react';
 
 const ExpandableContent = ({ data }: { data: string | object }) => {
   if (typeof data === 'string') {
@@ -20,12 +21,13 @@ const ExpandableContent = ({ data }: { data: string | object }) => {
 
 interface DataradProps {
   rad: ResultatType;
-  addLeft: Function;
-  addRight: Function;
   rowIsInDiff: boolean;
+  dispatch: Dispatch<ActionType>;
 }
 const Datarad = (props: DataradProps) => {
-  const { rad, addLeft, addRight, rowIsInDiff } = props;
+  const { rad, rowIsInDiff, dispatch } = props;
+  const addLeft = () => dispatch({ type: DiffActions.ADD_LEFT, payload: rad });
+  const addRight = () => dispatch({ type: DiffActions.ADD_RIGHT, payload: rad });
   return (
     <Table.ExpandableRow
       content={<ExpandableContent data={rad.record} />}
@@ -134,13 +136,7 @@ const Soekeresultat = ({ data, partisjonerIResultat, topicFilter }: Soekeresulta
         </Table.Header>
         <Table.Body>
           {sortedAndFilteredData.map((rad, index) => (
-            <Datarad
-              rad={rad}
-              key={index}
-              addLeft={() => dispatch({ type: DiffActions.ADD_LEFT, payload: rad })}
-              addRight={() => dispatch({ type: DiffActions.ADD_RIGHT, payload: rad })}
-              rowIsInDiff={radErLagtIDiff(rad)}
-            />
+            <Datarad rad={rad} key={index} rowIsInDiff={radErLagtIDiff(rad)} dispatch={dispatch} />
           ))}
         </Table.Body>
       </Table>

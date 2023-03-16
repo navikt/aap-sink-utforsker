@@ -9,10 +9,10 @@ export enum DiffActions {
   CLEAR_ALL = 'CLEAR_ALL',
 }
 
-type ActionType = {
+export interface ActionType {
   type: DiffActions;
   payload?: ResultatType;
-};
+}
 
 function reducer(state: DiffState, action: ActionType) {
   switch (action.type) {
