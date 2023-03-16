@@ -10,7 +10,7 @@ import { StatusIcon } from './StatusIcon';
 import { DiffViewer } from '@/components/DiffViewer';
 import { ActionType, DiffActions, useDiff } from '@/hooks/useDiff';
 import { timestampFromMilliSeconds } from '@/utils/dateUtils';
-import { Dispatch } from 'react';
+import { Dispatch, useState } from 'react';
 
 const ExpandableContent = ({ data }: { data: string | object }) => {
   if (typeof data === 'string') {
@@ -25,13 +25,16 @@ interface DataradProps {
   dispatch: Dispatch<ActionType>;
 }
 const Datarad = (props: DataradProps) => {
+  const [isOpen, toggleOpen] = useState<boolean>(false);
   const { rad, rowIsInDiff, dispatch } = props;
   const addLeft = () => dispatch({ type: DiffActions.ADD_LEFT, payload: rad });
   const addRight = () => dispatch({ type: DiffActions.ADD_RIGHT, payload: rad });
   return (
     <Table.ExpandableRow
-      content={<ExpandableContent data={rad.record} />}
+      content={isOpen && <ExpandableContent data={rad.record} />}
       className={rowIsInDiff ? `${styles.inDiff}` : ''}
+      open={isOpen}
+      onOpenChange={() => toggleOpen(!isOpen)}
     >
       <Table.DataCell>
         <StatusIcon data={rad.record} />
