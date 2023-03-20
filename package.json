@@ -9,30 +9,30 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@navikt/ds-css": "^2.2.0",
-    "@navikt/ds-css-internal": "^2.2.0",
-    "@navikt/ds-react": "^2.2.0",
-    "@navikt/ds-react-internal": "^2.2.0",
-    "@next/font": "13.1.6",
-    "@types/node": "^18.14.0",
+    "@navikt/ds-css": "^2.8.1",
+    "@navikt/ds-css-internal": "^2.8.1",
+    "@navikt/ds-react": "^2.8.1",
+    "@navikt/ds-react-internal": "^2.8.1",
+    "@next/font": "^13.2.4",
+    "@types/node": "^18.15.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "date-fns": "^2.29.3",
-    "eslint": "^8.34.0",
-    "eslint-config-next": "13.1.6",
-    "jose": "^4.12.0",
-    "next": "13.1.6",
+    "eslint": "^8.36.0",
+    "eslint-config-next": "^13.2.4",
+    "jose": "^4.13.1",
+    "next": "^13.2.4",
     "openid-client": "^5.4.0",
     "react": "18.2.0",
     "react-diff-viewer": "^3.1.1",
     "react-dom": "18.2.0",
     "react-json-view-lite": "^0.9.4",
-    "swr": "2.0.3",
+    "swr": "^2.1.0",
     "typescript": "^4.9.5"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
-    "prettier": "^2.8.4"
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
+    "prettier": "^2.8.5"
   }
 }
