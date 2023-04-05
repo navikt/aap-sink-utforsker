@@ -14,12 +14,7 @@
     "@navikt/ds-react": "^2.8.7",
     "@navikt/ds-react-internal": "^2.8.7",
     "@next/font": "^13.2.4",
-    "@types/node": "^18.15.3",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
     "date-fns": "^2.29.3",
-    "eslint": "^8.36.0",
-    "eslint-config-next": "^13.2.4",
     "jose": "^4.13.1",
     "next": "^13.2.4",
     "openid-client": "^5.4.0",
@@ -31,8 +26,20 @@
     "typescript": "^5.0.2"
   },
   "devDependencies": {
+    "@navikt/eslint-config-aap": "0.0.60",
+    "@next/eslint-plugin-next": "^13.1.6",
+    "@types/node": "^18.15.3",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
+    "eslint": "^8.37.0",
+    "eslint-config-next": "^13.1.1",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-jest": "^27.2.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.5"
   }
 }
