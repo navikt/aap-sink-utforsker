@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { SortState } from '@navikt/ds-react';
+import { useState } from 'react';
+
 import { ResultatType } from '../../../pages/sok';
 
 const useHandleSort = () => {

@@ -1,16 +1,16 @@
-import { Alert, Button, Table } from '@navikt/ds-react';
-
-import styles from './Soekeresultat.module.css';
-import { ResultatType } from '../../../pages/sok';
-import { defaultStyles, JsonView } from 'react-json-view-lite';
-import 'react-json-view-lite/dist/index.css';
-import { sortData, useHandleSort } from '@/components/Soekeresultat/SoekeresultatUtil';
-import { CopyToClipboard } from '@navikt/ds-react-internal';
-import { StatusIcon } from './StatusIcon';
 import { DiffViewer } from '@/components/DiffViewer';
+import { sortData, useHandleSort } from '@/components/Soekeresultat/SoekeresultatUtil';
 import { ActionType, DiffActions, useDiff } from '@/hooks/useDiff';
 import { timestampFromMilliSeconds } from '@/utils/dateUtils';
+import { Alert, Button, Table } from '@navikt/ds-react';
+import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { Dispatch, useState } from 'react';
+import { JsonView, defaultStyles } from 'react-json-view-lite';
+import 'react-json-view-lite/dist/index.css';
+
+import { ResultatType } from '../../../pages/sok';
+import styles from './Soekeresultat.module.css';
+import { StatusIcon } from './StatusIcon';
 
 const ExpandableContent = ({ data }: { data: string | object }) => {
   if (typeof data === 'string') {

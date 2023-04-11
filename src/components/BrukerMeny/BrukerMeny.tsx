@@ -1,6 +1,6 @@
-import React from 'react';
-import { Dropdown, Header } from '@navikt/ds-react-internal';
 import { Link } from '@navikt/ds-react';
+import { Dropdown, Header } from '@navikt/ds-react-internal';
+import React from 'react';
 
 interface Props {
   brukerinfo: Brukerinfo;

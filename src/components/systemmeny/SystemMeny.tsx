@@ -1,6 +1,6 @@
-import { Dropdown, Header } from '@navikt/ds-react-internal';
 import { ExternalLink, System } from '@navikt/ds-icons';
 import { Link } from '@navikt/ds-react';
+import { Dropdown, Header } from '@navikt/ds-react-internal';
 
 export const SystemMeny = () => {
   return (

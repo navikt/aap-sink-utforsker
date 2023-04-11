@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { parseJSON } from '@/utils/jsonUtils';
 import { Buffer } from 'buffer';
+import { useState } from 'react';
 
 const useFetch = () => {
   const [data, setData] = useState<any | undefined>(undefined);

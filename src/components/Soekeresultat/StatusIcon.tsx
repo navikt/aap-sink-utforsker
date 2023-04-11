@@ -1,4 +1,5 @@
 import styles from './StatusIcon.module.css';
+
 type Props = {
   data: string | object;
 };

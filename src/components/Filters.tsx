@@ -1,5 +1,6 @@
-import { ResultatType } from '../../pages/sok';
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
+
+import { ResultatType } from '../../pages/sok';
 
 interface TopicFilterProps {
   data: ResultatType[];

@@ -1,5 +1,5 @@
-import { ReactElement } from 'react';
 import { InternalHeader } from '@/components/InternalHeader/InternalHeader';
+import { ReactElement } from 'react';
 
 interface Props {
   children: ReactElement;

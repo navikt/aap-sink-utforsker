@@ -1,57 +1,56 @@
 .diffContainer {
-    background: hsl(0 100% 100%);
+  background: hsl(0 100% 100%);
 
-    padding: 1rem;
+  padding: 1rem;
 
-    border-bottom: 1px solid hsl(0 0% 0%);
-    min-width: 20rem;
+  border-bottom: 1px solid hsl(0 0% 0%);
+  min-width: 20rem;
 
-    position: sticky;
-    top: 0;
+  position: sticky;
+  top: 0;
 }
 
-
 .buttonRow {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .buttonRow > button {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 .bold {
-    font-weight: 900;
+  font-weight: 900;
 }
 
 .key {
-    display: inline-block;
-    font-weight: 500;
-    font-size: 0.9rem;
-    min-width: 5rem;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 0.9rem;
+  min-width: 5rem;
 }
 
 .value {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .summary {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .summaryRow {
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .diffSide {
-    min-width: 15rem;
-    padding: 0.5rem;
+  min-width: 15rem;
+  padding: 0.5rem;
 }
 
 .diffSide + .diffSide {
-    border-left: 1px solid hsl(0 0% 0%);
+  border-left: 1px solid hsl(0 0% 0%);
 }
 
 .modal {
-    min-width: 50%;
+  min-width: 50%;
 }

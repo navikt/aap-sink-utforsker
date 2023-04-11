@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import './LandingPageAnimation.module.css';
 
+import './LandingPageAnimation.module.css';
 import styles from './LandingPageAnimation.module.css';
 
 interface Props {

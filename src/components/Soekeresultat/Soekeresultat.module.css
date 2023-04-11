@@ -1,12 +1,12 @@
 .resultatTabell {
-    height: fit-content;
+  height: fit-content;
 }
 
 .resultatSeksjon {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .inDiff {
-    background-color: hsla(197, 100%, 85%, 0.8);
+  background-color: hsla(197, 100%, 85%, 0.8);
 }

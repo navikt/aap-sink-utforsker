@@ -1,5 +1,6 @@
-import { ResultatType } from '../../pages/sok';
 import { useReducer } from 'react';
+
+import { ResultatType } from '../../pages/sok';
 
 export enum DiffActions {
   ADD_RIGHT = 'ADD_RIGHT',

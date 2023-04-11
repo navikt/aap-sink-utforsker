@@ -1,5 +1,6 @@
-import { BodyShort, GuidePanel, LinkPanel } from '@navikt/ds-react';
 import { LandingPageAnimation } from '@/components/LandingPageAnimation/LandingPageAnimation';
+import { BodyShort, GuidePanel, LinkPanel } from '@navikt/ds-react';
+
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide';
 
 export default function Home() {
