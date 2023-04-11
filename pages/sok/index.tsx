@@ -1,11 +1,11 @@
-import { Alert, Button, Heading, Radio, RadioGroup, TextField } from '@navikt/ds-react';
-import { FormEvent, RefObject, useRef, useState } from 'react';
-import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
-
-import styles from './Sok.module.css';
+import { Filters } from '@/components/Filters';
 import { Soekeresultat } from '@/components/Soekeresultat/Soekeresultat';
 import { useFetch } from '@/hooks/useFetch';
-import { Filters } from '@/components/Filters';
+import { Alert, Button, Heading, Radio, RadioGroup, TextField } from '@navikt/ds-react';
+import { FormEvent, RefObject, useRef, useState } from 'react';
+
+import { beskyttetSideUtenProps } from '../../auth/beskyttetSide';
+import styles from './Sok.module.css';
 
 export interface ResultatType {
   personident: string;

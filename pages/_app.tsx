@@ -1,13 +1,13 @@
-import type { AppProps } from 'next/app';
-import Head from 'next/head';
 import { Layout } from '@/components/Layout/Layout';
-
 import '@navikt/ds-css';
 import '@navikt/ds-css-internal';
-import '../src/styles/index.css';
-import '../src/styles/globals.css';
-import { SWRConfig } from 'swr/_internal';
 import { Modal } from '@navikt/ds-react';
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import { SWRConfig } from 'swr/_internal';
+
+import '../src/styles/globals.css';
+import '../src/styles/index.css';
 
 function App(props: AppProps) {
   const { Component, pageProps } = props;
